@@ -32,3 +32,76 @@ The instructor is Riley Kidd, he holds a number of certifications including OSCP
   </ul>
 
 </details>
+
+<details close>
+<summary>
+<h1>The Windows API</h1>
+</summary>
+
+  <ul>
+       <li>C Data Types and Structures</li>
+       <li>Interfacing with the Windows API</li>
+       <li>Undocumented API Calls</li>
+        <li>Direct Syscalls</li>
+        <li>Execution from a DLL</li>
+  </ul>
+
+</details>
+
+details close>
+<summary>
+<h1>Extending Python</h1>
+</summary>
+
+  <ul>
+        <li>BeautifulSoup</li>
+  <li>Py2exe</li>
+  <li>Sockets</li>
+  <li>Scapy</li>
+  <li>Subprocess</li>
+  <li>Threading</li>
+  <li>Pycryptodome</li>
+  <li>Argparse</li>
+    
+  </ul>
+
+</details>
+
+
+
+details close>
+<summary>
+<h1>Python Projects</h1>
+</summary>
+
+  <ul>
+
+ <li>Project #1 - Remote DLL Injection</li>
+  <li>Project #2 - Process Creation and Shellcode Execution (pt1)</li>
+  <li>Project #2 - Process Creation and Shellcode Execution (pt2)</li>
+  <li>Project #3 - Keylogging a System</li>
+  <li>Project #4 - Buffer Overflow</li>
+  <li>Project #5 - Encrypted Bind Shell</li>
+    
+  </ul>
+
+</details>
+
+<details close>
+<summary>
+<h1> Extending Burp </h1>
+</summary>
+<ul>
+  <li>Start Introduction</li>
+  <li>Start Custom Burp Extension</li>
+</ul>
+</details>
+<details close>
+<summary>
+<h1> Debugging </h1>
+</summary>
+<ul>
+  <li>Start Introduction</li>
+  <li>Start Debugging a Script</li>
+</ul>
+</details>
