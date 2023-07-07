@@ -69,7 +69,7 @@ The instructor is Riley Kidd, he holds a number of certifications including OSCP
 
 
 
-details close>
+<details close>
 <summary>
 <h1>Python Projects</h1>
 </summary>
