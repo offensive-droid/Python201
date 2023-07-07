@@ -4,7 +4,7 @@ The instructor is Riley Kidd aka. Neutr, he holds a number of certifications inc
 
 ## Socials
 Follow Riley on Social Media:
-LinkedIn - (https://www.linkedin.com/in/rileykidd/)
+[nice](https://www.linkedin.com/in/rileykidd/)
 Twitter - (https://twitter.com/247CTF)[https://twitter.com/247CTF]
 YouTube - (https://www.youtube.com/247CTF)[https://www.youtube.com/247CTF]
 Personal - (https://247CTF.com/)[https://247CTF.com/]
