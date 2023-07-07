@@ -48,7 +48,7 @@ The instructor is Riley Kidd, he holds a number of certifications including OSCP
 
 </details>
 
-details close>
+<details close>
 <summary>
 <h1>Extending Python</h1>
 </summary>
