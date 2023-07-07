@@ -13,17 +13,18 @@ Personal - https://247CTF.com/ <br>
 
 <img src="https://i.ibb.co/HKnSpfx/New-Project.png">
 
-### Python 201
 <details open>
-<summary>Want to ruin the surprise?</summary>
+<summary>
+<h1> Python 201</h1>
+</summary>
 <br>
-Well, you asked for it!
-</details>
-
 - Decorators
 - Generators
 - Serialization
 - Closures
+</details>
+
+
 
 ### OOP
 - Classes, Objects, Methods
