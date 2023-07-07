@@ -4,10 +4,10 @@ The instructor is Riley Kidd aka. Neutr, he holds a number of certifications inc
 
 ## Socials
 Follow Riley on Social Media: <br>
-[LinkedIn](https://www.linkedin.com/in/rileykidd/)
-[Twitter](https://twitter.com/247CTF)
-[YouTube](https://www.youtube.com/247CTF)
-[Personal](https://247CTF.com/)
+[LinkedIn](https://www.linkedin.com/in/rileykidd/) <br>
+[Twitter](https://twitter.com/247CTF) <br>
+[YouTube](https://www.youtube.com/247CTF) <br>
+[Personal](https://247CTF.com/) 
 
 # Python 201 Course Contents
 <img src="https://i.ibb.co/vHjfZBn/image.png">
