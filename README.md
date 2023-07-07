@@ -9,10 +9,12 @@ Follow Riley on Social Media: <br>
 [YouTube](https://www.youtube.com/247CTF) <br>
 [Personal](https://247CTF.com/) 
 
+# Github Repo Info
+This Github Repo is made by OffensiveDroid and most of the files in Python201, OOP, Extending Python are not derived from the course itself. 
+These are made by me and some from ChatGPT since i got bored trying to type everything lmao.
+
 # Python 201 Course Contents
 <img src="https://i.ibb.co/vHjfZBn/image.png">
-
-
 
 <details close>
 <summary>
