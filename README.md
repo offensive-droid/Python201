@@ -3,8 +3,7 @@ This is from TCMSecurity. The course is Python 201 for hackers.
 The instructor is Riley Kidd aka. Neutr, he holds a number of certifications including OSCP, OSCE, OSED, CRTO, CEH, CISA, CISSP, CREST CRT and CREST CCT. He has also completed a Bachelor of Software Engineering degree with honours from the Australian National University.
 
 ## Socials
-Follow Riley on Social Media:
-<br>
+Follow Riley on Social Media: <br>
 [LinkedIn](https://www.linkedin.com/in/rileykidd/)
 [Twitter](https://twitter.com/247CTF)
 [YouTube](https://www.youtube.com/247CTF)
