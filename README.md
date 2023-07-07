@@ -2,6 +2,9 @@
 This is from TCMSecurity. The course is Python 201 for hackers.
 The instructor is Riley Kidd, he holds a number of certifications including OSCP, OSCE, OSED, CRTO, CEH, CISA, CISSP, CREST CRT and CREST CCT. He has also completed a Bachelor of Software Engineering degree with honours from the Australian National University.
 
+# Python 201 Course Contents
+<img src="https://i.ibb.co/vHjfZBn/image.png">
+
 <details close>
 <summary>
 <h2> Python 201</h2>
