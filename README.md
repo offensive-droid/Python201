@@ -13,15 +13,18 @@ Personal - https://247CTF.com/ <br>
 
 <img src="https://i.ibb.co/HKnSpfx/New-Project.png">
 
-<details open>
+<details close>
 <summary>
 <h1> Python 201</h1>
 </summary>
 <br>
-- Decorators
-- Generators
-- Serialization
-- Closures
+  <ul>
+    <li>Decorators</li>
+       <li>Generators</li>
+       <li>Serialization</li>
+       <li>Closures</li>
+  </ul>
+
 </details>
 
 
