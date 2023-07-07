@@ -11,7 +11,7 @@ Personal - https://247CTF.com/ <br>
 
 ## Python 201 - Contents of the course
 
-<img src"https://i.ibb.co/HKnSpfx/New-Project.png">
+<img src="https://i.ibb.co/HKnSpfx/New-Project.png">
 
 ### Python 201
 - Decorators
