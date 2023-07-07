@@ -1,9 +1,18 @@
 # <img src="https://i.ibb.co/3ytXhvR/tcm-1.png" width="50"> TCM Security
 This is from TCMSecurity. The course is Python 201 for hackers.
-The instructor is Riley Kidd, he holds a number of certifications including OSCP, OSCE, OSED, CRTO, CEH, CISA, CISSP, CREST CRT and CREST CCT. He has also completed a Bachelor of Software Engineering degree with honours from the Australian National University.
+The instructor is Riley Kidd aka. Neutr, he holds a number of certifications including OSCP, OSCE, OSED, CRTO, CEH, CISA, CISSP, CREST CRT and CREST CCT. He has also completed a Bachelor of Software Engineering degree with honours from the Australian National University.
+
+## Socials
+Follow Riley on Social Media:
+LinkedIn - (https://www.linkedin.com/in/rileykidd/)[https://www.linkedin.com/in/rileykidd/]
+Twitter - (https://twitter.com/247CTF)[https://twitter.com/247CTF]
+YouTube - (https://www.youtube.com/247CTF)[https://www.youtube.com/247CTF]
+Personal - (https://247CTF.com/)[https://247CTF.com/]
 
 # Python 201 Course Contents
 <img src="https://i.ibb.co/vHjfZBn/image.png">
+
+
 
 <details close>
 <summary>
