@@ -45,10 +45,10 @@ Personal - https://247CTF.com/ <br>
 
 ### Python Projects
 - Project #1: Remote DLL Injection
-- Process Creation and Shellcode Execution
-- Keylogger
-- Buffer Overflow 247 CTF
-- Encrypted Bind Shell
+- Project #2: Process Creation and Shellcode Execution
+- Project #3: Keylogger
+- Project #4: Buffer Overflow 247 CTF
+- Project #5: Encrypted Bind Shell
 
 ### Extending Burp
 - Custom Burp Extension
