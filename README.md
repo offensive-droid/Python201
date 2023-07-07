@@ -14,6 +14,12 @@ Personal - https://247CTF.com/ <br>
 <img src="https://i.ibb.co/HKnSpfx/New-Project.png">
 
 ### Python 201
+<details open>
+<summary>Want to ruin the surprise?</summary>
+<br>
+Well, you asked for it!
+</details>
+
 - Decorators
 - Generators
 - Serialization
